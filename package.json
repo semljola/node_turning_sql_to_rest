@@ -1,5 +1,5 @@
 {
-  "name": "sonnico_service",
+  "name": "node_turning_sql_to_rest",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
