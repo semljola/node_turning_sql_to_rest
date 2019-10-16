@@ -1,1 +1,1 @@
-.h2 Secure Node.js App with SQL Server
+Secure Node.js App with SQL Server

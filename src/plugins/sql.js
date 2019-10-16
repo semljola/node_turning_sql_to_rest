@@ -8,6 +8,7 @@ module.exports = {
    version: "1.0.0",
    register: async server => {
        // get the sql connection information
+
        const config = server.app.config.sql;
 
        // create an instance of the database client

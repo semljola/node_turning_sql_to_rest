@@ -4,6 +4,8 @@ const events = require( "./events" );
 const sql = require( "mssql" );
 
 const client = async ( server, config ) => {
+
+    
    let pool = null;
 
    const closePool = async () => {
@@ -25,14 +27,20 @@ const client = async ( server, config ) => {
    };
 
    const getConnection = async () => {
+
+
        try {
            if ( pool ) {
                // has the connection pool already been created?
                // if so, return the existing pool
                return pool;
            }
+           console.log("config",config);
+
            // create a new connection pool
            pool = await sql.connect( config );
+
+          
 
            // catch any connection errors and close the pool
            pool.on( "error", async err => {
@@ -42,10 +50,13 @@ const client = async ( server, config ) => {
            } );
            return pool;
        } catch ( err ) {
-           // error connecting to SQL Server
-           server.log( [ "error", "data" ], "error connecting to sql server" );
-           server.log( [ "error", "data" ], err );
-           pool = null;
+
+            console.log("hej",err,"då");
+           
+            // error connecting to SQL Server
+            server.log( [ "error", "data" ], "error connecting to sql server" );
+            server.log( [ "error", "data" ], err );
+            pool = null;
        }
    };
 
