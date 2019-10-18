@@ -1,6 +1,8 @@
 "use strict";
 
 const events = require( "./events" );
+const customers = require( "./customers" );
+const material = require( "./material" );
 const sql = require( "mssql" );
 
 const client = async ( server, config ) => {
@@ -35,15 +37,16 @@ const client = async ( server, config ) => {
                // if so, return the existing pool
                return pool;
            }
-           console.log("config",config);
+
 
            // create a new connection pool
            pool = await sql.connect( config );
 
-          
+           
 
            // catch any connection errors and close the pool
            pool.on( "error", async err => {
+            console.log("err",err);
                server.log( [ "error", "data" ], "connection pool error" );
                server.log( [ "error", "data" ], err );
                await closePool();
@@ -51,11 +54,10 @@ const client = async ( server, config ) => {
            return pool;
        } catch ( err ) {
 
-            console.log("hej",err,"då");
-           
             // error connecting to SQL Server
             server.log( [ "error", "data" ], "error connecting to sql server" );
             server.log( [ "error", "data" ], err );
+             console.log("err",err);
             pool = null;
        }
    };
@@ -63,7 +65,9 @@ const client = async ( server, config ) => {
    // this is the API the client exposes to the rest
    // of the application
    return {
-       events: await events.register( { sql, getConnection } )
+    events: await events.register( { sql, getConnection } ),
+    material: await material.register( { sql, getConnection } ),
+    customers: await customers.register( { sql, getConnection } )
    };
 };
 

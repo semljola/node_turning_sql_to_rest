@@ -1,0 +1,11 @@
+SELECT TOP (10) [KundeNr]
+      ,[KundeNavn]
+      ,[FR_Adresse]
+      ,[Kontakt]
+      ,[RecDato]
+      ,[IdBaksystem]
+      ,[ePostAdresse]
+      ,[Firmakunde]
+      ,[Forfallsdager]
+  FROM [HM_VC_Prod].[dbo].[Kunde]
+  WHERE KundeNavn LIKE 'Quant%'
