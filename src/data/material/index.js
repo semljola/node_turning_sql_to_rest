@@ -6,9 +6,7 @@ const register = async ( { sql, getConnection } ) => {
    // read in all the .sql files for this folder
    const sqlQueries = await utils.loadSqlQueries( "material" );
 
-   const getMaterial = async userId => {
-
-      console.log("material");
+   const getMaterial = async ( { userId, startDate, endDate } ) => {
 
        // get a connection to SQL Server
        const cnx = await getConnection();
@@ -18,11 +16,12 @@ const register = async ( { sql, getConnection } ) => {
 
        // configure sql query parameters
        request.input( "userId", sql.VarChar( 50 ), userId );
+       request.input( "startDate", sql.Date, startDate );
+       request.input( "endDate", sql.Date, endDate );
 
        // return the executed query
        var json = request.query( sqlQueries.getMaterial ).then(
         function(result){
-          console.log(result);
           return result;
         });
  

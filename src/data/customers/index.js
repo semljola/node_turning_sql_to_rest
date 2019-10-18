@@ -8,8 +8,6 @@ const register = async ( { sql, getConnection } ) => {
 
    const getCustomers = async userId => {
 
-      console.log("here");
-
        // get a connection to SQL Server
        const cnx = await getConnection();
 
