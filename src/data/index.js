@@ -3,6 +3,7 @@
 const events = require( "./events" );
 const customers = require( "./customers" );
 const material = require( "./material" );
+const hours = require( "./hours" );
 const sql = require( "mssql" );
 
 const client = async ( server, config ) => {
@@ -67,6 +68,7 @@ const client = async ( server, config ) => {
    return {
     events: await events.register( { sql, getConnection } ),
     material: await material.register( { sql, getConnection } ),
+    hours: await hours.register( { sql, getConnection } ),
     customers: await customers.register( { sql, getConnection } )
    };
 };

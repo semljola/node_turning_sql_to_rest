@@ -4,9 +4,9 @@ const utils = require( "../utils" );
 
 const register = async ( { sql, getConnection } ) => {
    // read in all the .sql files for this folder
-   const sqlQueries = await utils.loadSqlQueries( "material" );
+   const sqlQueries = await utils.loadSqlQueries( "hours" );
 
-   const getMaterial = async ( { clientId, startDate, endDate } ) => {
+   const getHours = async ( { clientId, startDate, endDate } ) => {
 
        // get a connection to SQL Server
        const cnx = await getConnection();
@@ -20,8 +20,9 @@ const register = async ( { sql, getConnection } ) => {
        request.input( "endDate", sql.Date, endDate );
 
        // return the executed query
-       var json = request.query( sqlQueries.getMaterial ).then(
+       var json = request.query( sqlQueries.getHours ).then(
         function(result){
+            console.log("hours result",result);
           return result;
         });
  
@@ -29,7 +30,7 @@ const register = async ( { sql, getConnection } ) => {
    };
 
    return {
-      getMaterial
+      getHours
    };
 };
 

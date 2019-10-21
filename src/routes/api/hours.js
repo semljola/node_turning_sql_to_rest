@@ -5,7 +5,7 @@ const boom = require( "boom" );
 module.exports.register = async server => {
    server.route( {
        method: "GET",
-       path: "/api/material",
+       path: "/api/hours",
        config: {
            auth: {
                strategy: "session",
@@ -20,12 +20,12 @@ module.exports.register = async server => {
                    const userId = request.auth.credentials.profile.id;
 
                    // execute the query
-                   const res = await db.material.getMaterial( userId );
+                   const res = await db.hours.getHours( userId );
 
                    // return the recordset object
                    return res.recordset;
                } catch ( err ) {
-                   server.log( [ "error", "api", "material" ], err );
+                   server.log( [ "error", "api", "hours" ], err );
                    return boom.boomify( err );
                }
            }
@@ -34,7 +34,7 @@ module.exports.register = async server => {
 
    server.route( {
     method: "POST",
-    path: "/api/material",
+    path: "/api/hours",
     config: {
         auth: {
             strategy: "session",
@@ -51,7 +51,7 @@ module.exports.register = async server => {
                // const res = await db.events.addEvent( { userId, startDate, startTime, endDate, endTime, title, description } );
                 
                // execute the query
-               const res = await db.material.getMaterial( { clientId, startDate, endDate } );
+               const res = await db.hours.getHours( { clientId, startDate, endDate } );
 
                return res.recordset;
             } catch ( err ) {
